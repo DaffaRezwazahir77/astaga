@@ -26,8 +26,8 @@ body{
  background:var(--glass);padding:22px;margin-bottom:18px
 }
 .hero{text-align:center}
-.logo{font-size:52px}
-.brand{font-family:'Great Vibes';font-size:40px;color:#f7ecd1}
+.logo{font-size:56px}
+.brand{font-family:'Great Vibes';font-size:42px;color:#f7ecd1}
 .tag{font-size:12px;letter-spacing:3px;color:var(--muted)}
 
 .menu{
@@ -38,30 +38,32 @@ body{
 }
 .menu-img{font-size:26px}
 .menu-info{flex:1}
+
 .qty{display:flex;gap:6px;align-items:center}
 .qty button{
  width:30px;height:30px;border-radius:10px;
  border:1px solid var(--line);background:rgba(255,255,255,.1);
- color:#fff;font-weight:700;cursor:pointer
+ color:#fff;font-weight:700
 }
-.qty span{width:22px;text-align:center}
 
-textarea,input[type=text],input[type=file]{
+textarea,input[type=text]{
  width:100%;padding:14px;border-radius:16px;
  background:rgba(255,255,255,.04);
  border:1px solid var(--line);color:#fff;margin-bottom:12px
 }
+
 .fee{
  padding:14px;border-radius:16px;
  border:1px dashed var(--line);
  font-size:13px;margin-top:10px
 }
+
 .btn{
  width:100%;padding:16px;border-radius:18px;
- border:0;font-weight:700;cursor:pointer;
- background:linear-gradient(135deg,var(--a1),var(--a2))
+ border:0;font-weight:700;
+ background:linear-gradient(135deg,var(--a1),var(--a2));
+ color:#000
 }
-.btn:disabled{opacity:.5}
 small{color:var(--muted)}
 </style>
 </head>
@@ -86,121 +88,100 @@ small{color:var(--muted)}
 <textarea name="notes" placeholder="Catatan (opsional)"></textarea>
 
 <small>
-💳 <b>WAJIB TRANSFER DULU</b><br>
+💳 <b>TRANSFER DULU</b><br>
 DANA <b>085720303275</b><br>
-a.n <b>ANJAR DAFFA REZWAZAHIR</b>
-</small><br><br>
-
-<input type="file" id="proof" accept="image/*" required>
-<label><input type="checkbox" id="paid"> Saya sudah transfer</label>
+a.n <b>ANJAR DAFFA REZWAZAHIR</b><br><br>
+📸 <b>Bukti transfer dikirim langsung via WhatsApp</b>
+</small>
 
 <div class="fee" id="box">
-Subtotal: Rp 0<br>Fee: Rp 0<br><b>Total: Rp 0</b>
+Subtotal: Rp 0<br>
+Fee: Rp 0<br>
+<b>Total: Rp 0</b>
 </div>
 
-<button class="btn" id="btn" disabled>Kirim ke WhatsApp</button>
+<button class="btn">Kirim ke WhatsApp</button>
 </form>
 </div>
 
 </div>
 
 <script>
-const MENUS=[
- {name:'Cheesecuit',price:30000,icon:'🍰'},
- {name:'Brownies',price:25000,icon:'🍫'},
- {name:'Choco Pie',price:20000,icon:'🥧'}
+const MENUS = [
+ { name:'Cheesecuit', price:30000, icon:'🍰' },
+ { name:'Brownies', price:25000, icon:'🍫' },
+ { name:'Choco Pie', price:20000, icon:'🥧' }
 ];
 
 const FEE = 5000;
-const admin = '6285720303275';
+const ADMIN_WA = '6285720303275';
 
-const menus = document.getElementById('menus');
-const box   = document.getElementById('box');
-const btn   = document.getElementById('btn');
-const paid  = document.getElementById('paid');
-const proof = document.getElementById('proof');
-const form  = document.getElementById('form');
+const menusDiv = document.getElementById('menus');
+const box = document.getElementById('box');
 
 MENUS.forEach((m,i)=>{
- menus.innerHTML += `
+ menusDiv.innerHTML += `
  <div class="menu">
   <div class="menu-img">${m.icon}</div>
   <div class="menu-info">
    <b>${m.name}</b><br>
    <small>Rp ${m.price.toLocaleString('id-ID')}</small>
   </div>
-
-  <input type="checkbox" id="c${i}" onchange="toggle(${i})">
-
+  <input type="checkbox" id="c${i}" onchange="update()">
   <div class="qty">
-   <button type="button" onclick="chg(${i},-1)" disabled id="min${i}">−</button>
+   <button type="button" onclick="chg(${i},-1)">−</button>
    <span id="q${i}">1</span>
-   <button type="button" onclick="chg(${i},1)" disabled id="plus${i}">+</button>
+   <button type="button" onclick="chg(${i},1)">+</button>
   </div>
  </div>`;
 });
 
-function toggle(i){
- const checked = document.getElementById('c'+i).checked;
- document.getElementById('min'+i).disabled  = !checked;
- document.getElementById('plus'+i).disabled = !checked;
- update();
-}
-
 function chg(i,n){
- const q = document.getElementById('q'+i);
- q.textContent = Math.max(1, +q.textContent + n);
+ const q=document.getElementById('q'+i);
+ q.textContent=Math.max(1,+q.textContent+n);
  update();
 }
 
 function update(){
- let subtotal = 0;
- let totalQty = 0;
-
+ let subtotal=0,totalQty=0;
  MENUS.forEach((m,i)=>{
   if(document.getElementById('c'+i).checked){
-   const q = +document.getElementById('q'+i).textContent;
-   subtotal += m.price * q;
-   totalQty += q;
+   const q=+document.getElementById('q'+i).textContent;
+   subtotal+=m.price*q;
+   totalQty+=q;
   }
  });
-
- const fee = totalQty ? Math.ceil(totalQty / 3) * FEE : 0;
- const total = subtotal + fee;
-
+ const fee = totalQty ? Math.ceil(totalQty/3)*FEE : 0;
  box.innerHTML = `
  Subtotal: Rp ${subtotal.toLocaleString('id-ID')}<br>
  Fee: Rp ${fee.toLocaleString('id-ID')}<br>
- <b>Total: Rp ${total.toLocaleString('id-ID')}</b>`;
+ <b>Total: Rp ${(subtotal+fee).toLocaleString('id-ID')}</b>`;
 }
 
-paid.onchange = proof.onchange = ()=>{
- btn.disabled = !(paid.checked && proof.files.length);
-};
-
-form.onsubmit = e=>{
+form.onsubmit=e=>{
  e.preventDefault();
 
- let msg = `🛍️ ORDER JASTIP - NITIPAGAIN\n\n`;
+ let msg = `🛍️ *ORDER JASTIP NITIPAGAIN*\n\n`;
  MENUS.forEach((m,i)=>{
   if(document.getElementById('c'+i).checked){
-   msg += `${m.name} x${document.getElementById('q'+i).textContent}\n`;
+   msg += `• ${m.name} x${document.getElementById('q'+i).textContent}\n`;
   }
  });
 
- msg += `
-
-Nama: ${form.name.value}
+ msg += `\nNama: ${form.name.value}
 Alamat:
 ${form.address.value}
 
 Catatan:
 ${form.notes.value || '-'}
 
-Status: ✅ SUDAH TRANSFER
-(Bukti dikirim manual di WA)`;
+💳 Transfer ke:
+DANA 085720303275
+a.n ANJAR DAFFA
 
- window.open(`https://wa.me/${admin}?text=${encodeURIComponent(msg)}`);
+📸 Kirim foto bukti transfer di chat ini`;
+
+ window.open(`https://wa.me/${ADMIN_WA}?text=${encodeURIComponent(msg)}`);
 };
 </script>
 
