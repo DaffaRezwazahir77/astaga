@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>nitipagain — Premium Jastip</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg1:#040915;--bg2:#081a2f;--glass:rgba(255,255,255,.05);
+  --line:rgba(255,255,255,.10);--a1:#06b6d4;--a2:#caa44b;
+  --text:#edf4ff;--muted:rgba(255,255,255,.65);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;display:flex;justify-content:center;align-items:flex-start;padding:20px;
+  font-family:Inter;color:var(--text);
+  background:
+    radial-gradient(700px 300px at 10% -10%,rgba(6,182,212,.18),transparent),
+    radial-gradient(700px 300px at 90% 10%,rgba(202,164,75,.15),transparent),
+    linear-gradient(180deg,var(--bg1),var(--bg2));
+}
+.wrap{width:min(1140px,94%);display:flex;gap:34px;flex-wrap:wrap}
+.hero{
+  flex:0 0 380px;padding:36px;border-radius:26px;
+  background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.03));
+  border:1px solid var(--line);text-align:center
+}
+.logo{font-size:82px}
+.brand{font-family:'Great Vibes';font-size:52px;color:#f7ecd1}
+.tag{font-size:12px;letter-spacing:4px;color:var(--muted)}
+.line{width:90px;height:2px;margin:22px auto;
+  background:linear-gradient(90deg,var(--a1),var(--a2))}
+.copy{font-size:13px;color:var(--muted)}
+.trust{margin-top:20px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.trust span{padding:7px 14px;font-size:11px;border-radius:999px;
+  background:rgba(255,255,255,.06);border:1px solid var(--line)}
+
+.card{
+  flex:1;padding:34px;border-radius:26px;
+  background:var(--glass);border:1px solid var(--line);
+  backdrop-filter:blur(18px)
+}
+h3{margin:0;font-size:24px}
+.sub{margin:8px 0 22px;font-size:13px;color:var(--muted)}
+.row{display:flex;gap:14px;flex-wrap:wrap}
+.field{margin-bottom:14px}
+input,select,textarea{
+  width:100%;padding:14px 16px;border-radius:16px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.04);color:var(--text)
+}
+textarea{min-height:90px}
+.fee-box{
+  margin:10px 0 16px;padding:14px;border-radius:16px;
+  background:rgba(255,255,255,.06);
+  border:1px dashed var(--line);font-size:13px
+}
+.actions{display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap}
+.btn{
+  padding:14px 22px;border-radius:16px;border:0;
+  font-weight:700;cursor:pointer;
+  background:linear-gradient(135deg,var(--a1),var(--a2));
+  color:#04161b
+}
+@media(max-width:940px){.wrap{flex-direction:column}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<div class="hero">
+  <div class="logo">🐧</div>
+  <div class="brand">nitipagain</div>
+  <div class="tag">Premium Jastip Service</div>
+  <div class="line"></div>
+  <div class="copy">Jasa titip cepat, aman, dan terpercaya.</div>
+  <div class="trust">
+    <span>✔ Trusted</span><span>⚡ Fast</span><span>🔒 Secure</span>
+  </div>
+</div>
+
+<div class="card">
+<h3>Order Jastip</h3>
+<div class="sub">Pilih menu & jumlah → otomatis ke WhatsApp</div>
+
+<form id="form">
+
+<div id="menuList"></div>
+
+<div class="field">
+<textarea name="address" placeholder="Alamat Pengiriman" required></textarea>
+</div>
+
+<div class="field">
+<textarea name="notes" placeholder="Catatan (opsional)"></textarea>
+</div>
+
+<div class="fee-box" id="box">
+Subtotal: Rp 0<br>
+Fee Jastip: Rp 0<br>
+<b>Total: Rp 0</b>
+</div>
+
+<div class="actions">
+<button type="submit" class="btn">Kirim ke WhatsApp</button>
+</div>
+
+</form>
+</div>
+</div>
+
+<script>
+const form = document.getElementById('form');
+const menuList = document.getElementById('menuList');
+const box = document.getElementById('box');
+const admin = '6285720303275';
+
+const FEE_PER_3 = 5000;
+
+const MENUS = [
+  {name:'Cheesecuit', price:30000},
+  {name:'Brownies', price:25000},
+  {name:'Choco Pie', price:20000},
+];
+
+// buat input untuk tiap menu
+MENUS.forEach((m,i)=>{
+  const div = document.createElement('div');
+  div.className = 'row';
+  div.innerHTML = `
+    <div class="field" style="flex:1">
+      <input type="checkbox" id="menu${i}" data-price="${m.price}" data-name="${m.name}">
+      <label for="menu${i}">${m.name} – Rp ${m.price.toLocaleString('id-ID')} / pcs</label>
+    </div>
+    <div class="field" style="width:100px">
+      <input type="number" min="1" value="1" id="qty${i}" disabled>
+    </div>
+  `;
+  menuList.appendChild(div);
+
+  const checkbox = div.querySelector('input[type="checkbox"]');
+  const qtyInput = div.querySelector('input[type="number"]');
+  checkbox.addEventListener('change', ()=>{
+    qtyInput.disabled = !checkbox.checked;
+    if(!checkbox.checked) qtyInput.value=1;
+    updateTotal();
+  });
+  qtyInput.addEventListener('input', updateTotal);
+});
+
+function hitungFee(totalQty){
+  return Math.ceil(totalQty/3)*FEE_PER_3;
+}
+
+function updateTotal(){
+  let subtotal=0,totalQty=0;
+  MENUS.forEach((m,i)=>{
+    const c = document.getElementById(`menu${i}`);
+    const q = Number(document.getElementById(`qty${i}`).value);
+    if(c.checked){
+      subtotal += m.price*q;
+      totalQty += q;
+    }
+  });
+  const fee = totalQty ? hitungFee(totalQty) : 0;
+  const total = subtotal + fee;
+  box.innerHTML = `Subtotal: Rp ${subtotal.toLocaleString('id-ID')}<br>
+  Fee Jastip: Rp ${fee.toLocaleString('id-ID')}<br>
+  <b>Total: Rp ${total.toLocaleString('id-ID')}</b>`;
+}
+
+form.addEventListener('submit', e=>{
+  e.preventDefault();
+  let selected=[];
+  let totalQty=0, subtotal=0;
+  MENUS.forEach((m,i)=>{
+    const c = document.getElementById(`menu${i}`);
+    const q = Number(document.getElementById(`qty${i}`).value);
+    if(c.checked){
+      selected.push({name:m.name, price:m.price, qty:q});
+      totalQty += q;
+      subtotal += m.price*q;
+    }
+  });
+  if(selected.length===0){alert('Pilih minimal 1 menu'); return;}
+  const fee = hitungFee(totalQty);
+  const total = subtotal+fee;
+
+  let pesan = `🛍️ ORDER JASTIP - NITIPAGAIN\n\n`;
+  pesan += `Nama: ${form.name.value || '-'}\n\n`;
+  selected.forEach(s=>{
+    pesan += `${s.name} x${s.qty} = Rp ${(s.price*s.qty).toLocaleString('id-ID')}\n`;
+  });
+  pesan += `\nSubtotal: Rp ${subtotal.toLocaleString('id-ID')}\n`;
+  pesan += `Fee: Rp ${fee.toLocaleString('id-ID')}\n`;
+  pesan += `Total: Rp ${total.toLocaleString('id-ID')}\n\n`;
+  pesan += `Alamat:\n${form.address.value}\n\n`;
+  pesan += `Catatan:\n${form.notes.value||'-'}`;
+
+  window.open(`https://wa.me/${admin}?text=${encodeURIComponent(pesan)}`,'_blank');
+});
+</script>
+
+</body>
+</html>
