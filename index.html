@@ -12,7 +12,8 @@
  --bg:#f6f7fb;
  --card:#ffffff;
  --line:#e6e8ef;
- --gold:#f4c400;
+ --blue:#38bdf8;
+ --blue-soft:#7dd3fc;
  --text:#1f2937;
  --muted:#6b7280;
 }
@@ -23,7 +24,7 @@ body{
  margin:0;
  padding:16px;
  font-family:Inter,sans-serif;
- background:var(--bg);
+ background:linear-gradient(180deg,#f8fafc,#eef2ff);
  color:var(--text);
 }
 
@@ -31,32 +32,35 @@ body{
 
 .card{
  background:var(--card);
- border:1px solid var(--line);
- border-radius:20px;
+ border-radius:22px;
  padding:20px;
  margin-bottom:16px;
- box-shadow:0 10px 25px rgba(0,0,0,.06);
+ box-shadow:0 12px 30px rgba(56,189,248,.15);
 }
 
 .hero{text-align:center;padding:26px 20px}
 
+/* LOGO BULAT + NEON BIRU */
 .logo-wrap{
  width:160px;
  height:160px;
- margin:0 auto 12px;
+ margin:0 auto 14px;
  border-radius:50%;
- background:url("images/cheesecuit-yellow.png") center/cover no-repeat;
+ background:#fff;
  display:flex;
  align-items:center;
  justify-content:center;
- box-shadow:0 10px 25px rgba(0,0,0,.15);
+ box-shadow:
+  0 0 18px rgba(56,189,248,.6),
+  0 0 36px rgba(56,189,248,.4),
+  inset 0 0 0 3px rgba(56,189,248,.35);
 }
 
-.logo-img{
- width:70%;
+.logo-wrap img{
+ width:72%;
+ height:72%;
+ object-fit:contain;
  border-radius:50%;
- background:#fff;
- padding:10px;
 }
 
 .brand{
@@ -68,6 +72,17 @@ body{
  font-size:11px;
  letter-spacing:3px;
  color:var(--muted);
+ margin-bottom:10px;
+}
+
+.alert{
+ background:#eff6ff;
+ border:1px solid #bae6fd;
+ color:#075985;
+ padding:14px;
+ border-radius:14px;
+ font-size:13px;
+ margin-top:14px;
 }
 
 /* MENU */
@@ -75,39 +90,39 @@ body{
  display:flex;
  gap:12px;
  border:1px solid var(--line);
- border-radius:16px;
+ border-radius:18px;
  padding:12px;
  margin-bottom:12px;
- background:#fafafa;
+ background:#f8fafc;
 }
 
 .menu img{
  width:76px;
  height:76px;
- border-radius:12px;
+ border-radius:14px;
  object-fit:cover;
 }
 
 .menu-info{flex:1}
 
 .badge{
- background:linear-gradient(135deg,var(--gold),#ffe08a);
+ background:linear-gradient(135deg,#38bdf8,#7dd3fc);
  font-size:10px;
- padding:3px 8px;
+ padding:4px 10px;
  border-radius:999px;
  font-weight:700;
  display:inline-block;
  margin-bottom:4px;
+ color:#fff;
 }
 
-/* RASA – RAPI */
 .varian{
- display:flex;
- flex-wrap:wrap;
- gap:10px;
  font-size:12px;
  color:var(--muted);
  margin-top:6px;
+ display:flex;
+ gap:10px;
+ flex-wrap:wrap;
 }
 
 .varian label{
@@ -116,7 +131,6 @@ body{
  gap:4px;
 }
 
-/* SELECT */
 .select{
  display:flex;
  flex-direction:column;
@@ -127,7 +141,7 @@ body{
 .select input{
  width:18px;
  height:18px;
- accent-color:var(--gold);
+ accent-color:#38bdf8;
 }
 
 .qty{
@@ -145,15 +159,10 @@ body{
  font-weight:700;
 }
 
-.qty button:disabled{
- opacity:.4;
- cursor:not-allowed;
-}
-
 input,textarea,select{
  width:100%;
  padding:13px;
- border-radius:14px;
+ border-radius:16px;
  background:#fff;
  border:1px solid var(--line);
  margin-bottom:12px;
@@ -161,20 +170,32 @@ input,textarea,select{
 
 .fee{
  padding:14px;
- border-radius:14px;
- border:1px dashed var(--line);
+ border-radius:16px;
+ border:1px dashed #bae6fd;
  font-size:13px;
- background:#fafafa;
+ background:#f0f9ff;
+}
+
+/* PEMBAYARAN */
+.pay-box{
+ background:#f0f9ff;
+ border:1px solid #bae6fd;
+ padding:14px;
+ border-radius:16px;
+ font-size:13px;
+ margin-top:12px;
 }
 
 .btn{
  width:100%;
  padding:16px;
- border-radius:18px;
+ border-radius:20px;
  border:0;
  font-weight:700;
- background:linear-gradient(135deg,var(--gold),#ffe8a3);
+ background:linear-gradient(135deg,#38bdf8,#7dd3fc);
+ color:#fff;
  cursor:pointer;
+ box-shadow:0 0 18px rgba(56,189,248,.7);
 }
 </style>
 </head>
@@ -184,10 +205,15 @@ input,textarea,select{
 
 <div class="card hero">
  <div class="logo-wrap">
-  <img src="logo jastip.jpeg" class="logo-img">
+  <img src="logo-jastip.jpg" alt="Nitipagain">
  </div>
  <div class="brand">nitipagain</div>
  <div class="tag">PREMIUM JASTIP</div>
+
+ <div class="alert">
+  ⚠️ <b>WAJIB TRANSFER TERLEBIH DAHULU</b><br>
+  Bukti pembayaran dikirim langsung via WhatsApp.
+ </div>
 </div>
 
 <div class="card">
@@ -195,8 +221,8 @@ input,textarea,select{
 
 <input id="name" placeholder="Nama Pemesan" required>
 
-<select id="ongkir" onchange="update()" required>
- <option value="">Pilih Ongkir</option>
+<select id="ongkir" onchange="update()">
+ <option value="0">Pilih Ongkir</option>
  <option value="10000">Kuningan — Rp10.000</option>
  <option value="15000">Cirebon — Rp15.000</option>
  <option value="25000">Bandung — Rp25.000</option>
@@ -213,7 +239,14 @@ input,textarea,select{
  <b>Total: Rp 0</b>
 </div>
 
-<button class="btn">Kirim ke WhatsApp</button>
+<div class="pay-box">
+ <b>💳 Metode Pembayaran</b>
+ BCA : 1234567890 a.n Nitipagain<br>
+ DANA / OVO : 0857-2030-3275<br><br>
+ 📸 <b>Bukti transfer kirim via WhatsApp</b>
+</div>
+
+<button class="btn">Bayar & Kirim Bukti ke WhatsApp</button>
 </form>
 </div>
 
@@ -248,22 +281,15 @@ MENUS.forEach((m,i)=>{
   </div>
 
   <div class="select">
-   <input type="checkbox" id="c${i}" onchange="toggleQty(${i});update()">
+   <input type="checkbox" id="c${i}" onchange="update()">
    <div class="qty">
-    <button type="button" id="m${i}" disabled onclick="chg(${i},-1)">−</button>
+    <button type="button" onclick="chg(${i},-1)">−</button>
     <span id="q${i}">1</span>
-    <button type="button" id="p${i}" disabled onclick="chg(${i},1)">+</button>
+    <button type="button" onclick="chg(${i},1)">+</button>
    </div>
   </div>
  </div>`;
 });
-
-function toggleQty(i){
- const on = document.getElementById('c'+i).checked;
- document.getElementById('p'+i).disabled = !on;
- document.getElementById('m'+i).disabled = !on;
- if(!on) document.getElementById('q'+i).textContent = 1;
-}
 
 function chg(i,n){
  const q=document.getElementById('q'+i);
@@ -273,6 +299,7 @@ function chg(i,n){
 
 function update(){
  let subtotal=0,totalPcs=0;
+
  MENUS.forEach((m,i)=>{
   if(document.getElementById('c'+i).checked){
    let qty=+document.getElementById('q'+i).textContent;
@@ -280,10 +307,13 @@ function update(){
    totalPcs+=qty;
   }
  });
- let fee=totalPcs?Math.ceil(totalPcs/3)*5000:0;
- let ongkir=+document.getElementById('ongkir').value||0;
+
+ let fee=totalPcs>0?Math.ceil(totalPcs/3)*5000:0;
+ let ongkir=+document.getElementById('ongkir').value;
  let total=subtotal+fee+ongkir;
- box.innerHTML=`Subtotal: Rp ${subtotal.toLocaleString('id-ID')}<br>
+
+ box.innerHTML=`
+ Subtotal: Rp ${subtotal.toLocaleString('id-ID')}<br>
  Fee Jastip: Rp ${fee.toLocaleString('id-ID')}<br>
  Ongkir: Rp ${ongkir.toLocaleString('id-ID')}<br>
  <b>Total: Rp ${total.toLocaleString('id-ID')}</b>`;
@@ -291,7 +321,8 @@ function update(){
 
 form.onsubmit=e=>{
  e.preventDefault();
- let msg=`🛍️ ORDER JASTIP NITIPAGAIN\nNama: ${name.value}\n\n`;
+ let msg=`🛍️ ORDER JASTIP NITIPAGAIN\n⚠️ WAJIB TRANSFER\n\nNama: ${name.value}\n\n`;
+
  MENUS.forEach((m,i)=>{
   if(document.getElementById('c'+i).checked){
    let qty=document.getElementById('q'+i).textContent;
@@ -299,7 +330,8 @@ form.onsubmit=e=>{
    msg+=`• ${m.name} (${v}) x${qty}\n`;
   }
  });
- msg+=`\n${box.innerText}\n\nAlamat:\n${alamat.value}`;
+
+ msg+=`\n${box.innerText}\n\nAlamat:\n${alamat.value}\n\n📸 Bukti transfer terlampir.`;
  window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`);
 };
 </script>
