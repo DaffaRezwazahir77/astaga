@@ -5,66 +5,177 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>nitipagain — Premium Jastip</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
 
 <style>
 :root{
- --bg1:#040915;--bg2:#081a2f;
- --glass:rgba(255,255,255,.06);
- --line:rgba(255,255,255,.12);
- --a1:#06b6d4;--a2:#caa44b;
- --text:#edf4ff;--muted:rgba(255,255,255,.65);
+ --bg:#f6f7fb;
+ --card:#ffffff;
+ --line:#e6e8ef;
+ --gold:#f4c400;
+ --text:#1f2937;
+ --muted:#6b7280;
 }
-*{box-sizing:border-box}
-body{
- margin:0;padding:18px;font-family:Inter;color:var(--text);
- background:linear-gradient(180deg,var(--bg1),var(--bg2));
-}
-.wrap{max-width:520px;margin:auto}
-.card{
- border-radius:26px;border:1px solid var(--line);
- background:var(--glass);padding:22px;margin-bottom:18px
-}
-.hero{text-align:center}
-.logo{font-size:56px}
-.brand{font-family:'Great Vibes';font-size:42px;color:#f7ecd1}
-.tag{font-size:12px;letter-spacing:3px;color:var(--muted)}
 
-.menu{
- display:flex;gap:12px;align-items:center;
- border:1px solid var(--line);
- background:rgba(255,255,255,.04);
- padding:14px;border-radius:18px;margin-bottom:10px
+*{box-sizing:border-box}
+
+body{
+ margin:0;
+ padding:16px;
+ font-family:Inter,sans-serif;
+ background:var(--bg);
+ color:var(--text);
 }
-.menu-img{font-size:26px}
+
+.wrap{max-width:520px;margin:auto}
+
+.card{
+ background:var(--card);
+ border:1px solid var(--line);
+ border-radius:20px;
+ padding:20px;
+ margin-bottom:16px;
+ box-shadow:0 10px 25px rgba(0,0,0,.06);
+}
+
+.hero{text-align:center;padding:26px 20px}
+
+.logo-wrap{
+ width:160px;
+ height:160px;
+ margin:0 auto 12px;
+ border-radius:50%;
+ background:url("images/cheesecuit-yellow.png") center/cover no-repeat;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ box-shadow:0 10px 25px rgba(0,0,0,.15);
+}
+
+.logo-img{
+ width:70%;
+ border-radius:50%;
+ background:#fff;
+ padding:10px;
+}
+
+.brand{
+ font-family:'Playfair Display',serif;
+ font-size:34px;
+}
+
+.tag{
+ font-size:11px;
+ letter-spacing:3px;
+ color:var(--muted);
+}
+
+/* MENU */
+.menu{
+ display:flex;
+ gap:12px;
+ border:1px solid var(--line);
+ border-radius:16px;
+ padding:12px;
+ margin-bottom:12px;
+ background:#fafafa;
+}
+
+.menu img{
+ width:76px;
+ height:76px;
+ border-radius:12px;
+ object-fit:cover;
+}
+
 .menu-info{flex:1}
 
-.qty{display:flex;gap:6px;align-items:center}
-.qty button{
- width:30px;height:30px;border-radius:10px;
- border:1px solid var(--line);background:rgba(255,255,255,.1);
- color:#fff;font-weight:700
+.badge{
+ background:linear-gradient(135deg,var(--gold),#ffe08a);
+ font-size:10px;
+ padding:3px 8px;
+ border-radius:999px;
+ font-weight:700;
+ display:inline-block;
+ margin-bottom:4px;
 }
 
-textarea,input[type=text]{
- width:100%;padding:14px;border-radius:16px;
- background:rgba(255,255,255,.04);
- border:1px solid var(--line);color:#fff;margin-bottom:12px
+/* RASA – RAPI */
+.varian{
+ display:flex;
+ flex-wrap:wrap;
+ gap:10px;
+ font-size:12px;
+ color:var(--muted);
+ margin-top:6px;
+}
+
+.varian label{
+ display:flex;
+ align-items:center;
+ gap:4px;
+}
+
+/* SELECT */
+.select{
+ display:flex;
+ flex-direction:column;
+ align-items:center;
+ gap:6px;
+}
+
+.select input{
+ width:18px;
+ height:18px;
+ accent-color:var(--gold);
+}
+
+.qty{
+ display:flex;
+ gap:6px;
+}
+
+.qty button{
+ width:26px;
+ height:26px;
+ border-radius:6px;
+ border:1px solid var(--line);
+ background:#fff;
+ cursor:pointer;
+ font-weight:700;
+}
+
+.qty button:disabled{
+ opacity:.4;
+ cursor:not-allowed;
+}
+
+input,textarea,select{
+ width:100%;
+ padding:13px;
+ border-radius:14px;
+ background:#fff;
+ border:1px solid var(--line);
+ margin-bottom:12px;
 }
 
 .fee{
- padding:14px;border-radius:16px;
+ padding:14px;
+ border-radius:14px;
  border:1px dashed var(--line);
- font-size:13px;margin-top:10px
+ font-size:13px;
+ background:#fafafa;
 }
 
 .btn{
- width:100%;padding:16px;border-radius:18px;
- border:0;font-weight:700;
- background:linear-gradient(135deg,var(--a1),var(--a2));
- color:#000
+ width:100%;
+ padding:16px;
+ border-radius:18px;
+ border:0;
+ font-weight:700;
+ background:linear-gradient(135deg,var(--gold),#ffe8a3);
+ cursor:pointer;
 }
-small{color:var(--muted)}
 </style>
 </head>
 
@@ -72,7 +183,9 @@ small{color:var(--muted)}
 <div class="wrap">
 
 <div class="card hero">
- <div class="logo">🐧</div>
+ <div class="logo-wrap">
+  <img src="logo jastip.jpeg" class="logo-img">
+ </div>
  <div class="brand">nitipagain</div>
  <div class="tag">PREMIUM JASTIP</div>
 </div>
@@ -80,24 +193,24 @@ small{color:var(--muted)}
 <div class="card">
 <form id="form">
 
-<input type="text" name="name" placeholder="Nama Pemesan" required>
+<input id="name" placeholder="Nama Pemesan" required>
+
+<select id="ongkir" onchange="update()" required>
+ <option value="">Pilih Ongkir</option>
+ <option value="10000">Kuningan — Rp10.000</option>
+ <option value="15000">Cirebon — Rp15.000</option>
+ <option value="25000">Bandung — Rp25.000</option>
+</select>
 
 <div id="menus"></div>
 
-<textarea name="address" placeholder="Alamat Lengkap" required></textarea>
-<textarea name="notes" placeholder="Catatan (opsional)"></textarea>
-
-<small>
-💳 <b>TRANSFER DULU</b><br>
-DANA <b>085720303275</b><br>
-a.n <b>ANJAR DAFFA REZWAZAHIR</b><br><br>
-📸 <b>Bukti transfer dikirim langsung via WhatsApp</b>
-</small>
+<textarea id="alamat" placeholder="Alamat Lengkap" required></textarea>
 
 <div class="fee" id="box">
-Subtotal: Rp 0<br>
-Fee: Rp 0<br>
-<b>Total: Rp 0</b>
+ Subtotal: Rp 0<br>
+ Fee Jastip: Rp 0<br>
+ Ongkir: Rp 0<br>
+ <b>Total: Rp 0</b>
 </div>
 
 <button class="btn">Kirim ke WhatsApp</button>
@@ -107,34 +220,50 @@ Fee: Rp 0<br>
 </div>
 
 <script>
-const MENUS = [
- { name:'Cheesecuit', price:30000, icon:'🍰' },
- { name:'Brownies', price:25000, icon:'🍫' },
- { name:'Choco Pie', price:20000, icon:'🥧' }
+const MENUS=[
+ {name:'Cheesecuit',price:30000,img:'cheescuit.jpeg',best:true,varian:['Original','Matcha','Coklat']},
+ {name:'Brownies',price:25000,img:'images/brownies.jpg',varian:['Coklat','Keju']},
+ {name:'Choco Pie',price:20000,img:'images/chocopie.jpg',best:true,varian:['Classic','Dark Choco']}
 ];
 
-const FEE = 5000;
-const ADMIN_WA = '6285720303275';
-
-const menusDiv = document.getElementById('menus');
-const box = document.getElementById('box');
+const WA='6285720303275';
+const menusDiv=document.getElementById('menus');
+const box=document.getElementById('box');
 
 MENUS.forEach((m,i)=>{
- menusDiv.innerHTML += `
+ menusDiv.innerHTML+=`
  <div class="menu">
-  <div class="menu-img">${m.icon}</div>
+  <img src="${m.img}">
   <div class="menu-info">
+   ${m.best?'<div class="badge">BEST SELLER</div>':''}
    <b>${m.name}</b><br>
    <small>Rp ${m.price.toLocaleString('id-ID')}</small>
+
+   <div class="varian">
+    ${m.varian.map(v=>`
+     <label>
+      <input type="radio" name="v${i}" value="${v}" checked> ${v}
+     </label>`).join('')}
+   </div>
   </div>
-  <input type="checkbox" id="c${i}" onchange="update()">
-  <div class="qty">
-   <button type="button" onclick="chg(${i},-1)">−</button>
-   <span id="q${i}">1</span>
-   <button type="button" onclick="chg(${i},1)">+</button>
+
+  <div class="select">
+   <input type="checkbox" id="c${i}" onchange="toggleQty(${i});update()">
+   <div class="qty">
+    <button type="button" id="m${i}" disabled onclick="chg(${i},-1)">−</button>
+    <span id="q${i}">1</span>
+    <button type="button" id="p${i}" disabled onclick="chg(${i},1)">+</button>
+   </div>
   </div>
  </div>`;
 });
+
+function toggleQty(i){
+ const on = document.getElementById('c'+i).checked;
+ document.getElementById('p'+i).disabled = !on;
+ document.getElementById('m'+i).disabled = !on;
+ if(!on) document.getElementById('q'+i).textContent = 1;
+}
 
 function chg(i,n){
  const q=document.getElementById('q'+i);
@@ -143,45 +272,35 @@ function chg(i,n){
 }
 
 function update(){
- let subtotal=0,totalQty=0;
+ let subtotal=0,totalPcs=0;
  MENUS.forEach((m,i)=>{
   if(document.getElementById('c'+i).checked){
-   const q=+document.getElementById('q'+i).textContent;
-   subtotal+=m.price*q;
-   totalQty+=q;
+   let qty=+document.getElementById('q'+i).textContent;
+   subtotal+=m.price*qty;
+   totalPcs+=qty;
   }
  });
- const fee = totalQty ? Math.ceil(totalQty/3)*FEE : 0;
- box.innerHTML = `
- Subtotal: Rp ${subtotal.toLocaleString('id-ID')}<br>
- Fee: Rp ${fee.toLocaleString('id-ID')}<br>
- <b>Total: Rp ${(subtotal+fee).toLocaleString('id-ID')}</b>`;
+ let fee=totalPcs?Math.ceil(totalPcs/3)*5000:0;
+ let ongkir=+document.getElementById('ongkir').value||0;
+ let total=subtotal+fee+ongkir;
+ box.innerHTML=`Subtotal: Rp ${subtotal.toLocaleString('id-ID')}<br>
+ Fee Jastip: Rp ${fee.toLocaleString('id-ID')}<br>
+ Ongkir: Rp ${ongkir.toLocaleString('id-ID')}<br>
+ <b>Total: Rp ${total.toLocaleString('id-ID')}</b>`;
 }
 
 form.onsubmit=e=>{
  e.preventDefault();
-
- let msg = `🛍️ *ORDER JASTIP NITIPAGAIN*\n\n`;
+ let msg=`🛍️ ORDER JASTIP NITIPAGAIN\nNama: ${name.value}\n\n`;
  MENUS.forEach((m,i)=>{
   if(document.getElementById('c'+i).checked){
-   msg += `• ${m.name} x${document.getElementById('q'+i).textContent}\n`;
+   let qty=document.getElementById('q'+i).textContent;
+   let v=document.querySelector('input[name=v'+i+']:checked').value;
+   msg+=`• ${m.name} (${v}) x${qty}\n`;
   }
  });
-
- msg += `\nNama: ${form.name.value}
-Alamat:
-${form.address.value}
-
-Catatan:
-${form.notes.value || '-'}
-
-💳 Transfer ke:
-DANA 085720303275
-a.n ANJAR DAFFA
-
-📸 Kirim foto bukti transfer di chat ini`;
-
- window.open(`https://wa.me/${ADMIN_WA}?text=${encodeURIComponent(msg)}`);
+ msg+=`\n${box.innerText}\n\nAlamat:\n${alamat.value}`;
+ window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`);
 };
 </script>
 
