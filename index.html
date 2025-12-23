@@ -3,304 +3,297 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>nitipagain — Premium Jastip</title>
+<title>nitipagain — Premium Jastip Makanan</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
 
 <style>
 :root{
- --bg:#f6f8fc;
- --card:#ffffff;
- --line:#e5e7eb;
+ --bg:#f5f5f5;
+ --panel:#ffffff;
+ --border:#e5e7eb;
  --blue:#38bdf8;
- --blue2:#0ea5e9;
  --text:#0f172a;
  --muted:#64748b;
 }
-
 *{box-sizing:border-box}
-
 body{
  margin:0;
- padding:16px;
  font-family:Inter,sans-serif;
  background:var(--bg);
  color:var(--text);
+ height:100vh;
+ overflow:hidden;
 }
 
-.wrap{max-width:520px;margin:auto}
-
-.card{
- background:var(--card);
- border:1px solid var(--line);
- border-radius:22px;
- padding:20px;
- margin-bottom:16px;
- box-shadow:0 10px 30px rgba(15,23,42,.08);
+/* HERO */
+.hero{
+ height:100vh;
+ display:flex;
+ flex-direction:column;
+ justify-content:center;
+ align-items:center;
+ text-align:center;
+ padding:28px 20px;
 }
-
-.hero{text-align:center;padding:26px 20px}
-
-/* LOGO NEON BIRU LANGIT (FIX HP) */
 .logo-wrap{
- width:160px;
- height:160px;
- margin:0 auto 14px;
+ width:165px;
+ height:165px;
  border-radius:50%;
  background:#fff;
- display:flex;
- align-items:center;
- justify-content:center;
  overflow:hidden;
- box-shadow:
-  0 0 18px rgba(56,189,248,.9),
-  0 0 36px rgba(56,189,248,.6),
-  inset 0 0 10px rgba(56,189,248,.35);
+ box-shadow:0 8px 30px rgba(56,189,248,.25);
 }
-
 .logo-wrap img{
  width:100%;
  height:100%;
  object-fit:cover;
- border-radius:50%;
- display:block;
 }
-
 .brand{
- font-family:'Playfair Display',serif;
+ font-family:'Playfair Display';
  font-size:34px;
- margin-top:6px;
+ margin-top:14px;
 }
-
 .tag{
- font-size:11px;
+ font-size:12px;
  letter-spacing:3px;
  color:var(--muted);
+ margin-top:4px;
 }
-
-.menu{
- display:flex;
- gap:12px;
- border:1px solid var(--line);
- border-radius:16px;
- padding:12px;
- margin-bottom:12px;
- background:#f8fafc;
-}
-
-.menu img{
- width:76px;
- height:76px;
- border-radius:12px;
- object-fit:cover;
-}
-
-.menu-info{flex:1}
-
-.badge{
- background:linear-gradient(135deg,var(--blue),var(--blue2));
- font-size:10px;
- padding:4px 10px;
- border-radius:999px;
- font-weight:700;
- color:#fff;
- display:inline-block;
- margin-bottom:4px;
-}
-
-.varian{
+.status{
+ margin-top:14px;
  font-size:12px;
- color:var(--muted);
- margin-top:6px;
+ font-weight:600;
+ padding:7px 16px;
+ border-radius:999px;
 }
-
-.varian label{margin-right:8px}
-
-.select{
- display:flex;
- flex-direction:column;
- align-items:center;
- gap:6px;
-}
-
-.select input{
- width:18px;
- height:18px;
- accent-color:var(--blue2);
-}
-
-.qty{
- display:flex;
- gap:6px;
-}
-
-.qty button{
- width:26px;
- height:26px;
- border-radius:6px;
- border:1px solid var(--line);
+.btn{
+ margin-top:22px;
+ padding:16px 42px;
+ border-radius:999px;
+ border:1px solid var(--blue);
  background:#fff;
+ font-weight:600;
+ font-size:14px;
  cursor:pointer;
- font-weight:700;
+}
+.btn:disabled{
+ opacity:.5;
+ cursor:not-allowed;
 }
 
+/* MODAL */
+.modal{
+ position:fixed;
+ inset:0;
+ background:rgba(245,245,245,.95);
+ display:none;
+ justify-content:center;
+ align-items:center;
+ padding:18px;
+ z-index:999;
+}
+.modal.active{display:flex}
+.box{
+ background:#fff;
+ width:100%;
+ max-width:420px;
+ border-radius:18px;
+ padding:22px;
+ border:1px solid var(--border);
+ max-height:90vh;
+ overflow-y:auto;
+}
+
+/* FORM */
+label{
+ display:block;
+ font-size:12px;
+ margin:14px 0 6px;
+ color:var(--muted);
+}
 input,textarea,select{
  width:100%;
- padding:13px;
- border-radius:14px;
- background:#fff;
- border:1px solid var(--line);
- margin-bottom:12px;
+ padding:12px;
+ border-radius:12px;
+ border:1px solid var(--border);
+ font-size:14px;
 }
-
+textarea{resize:none}
+.info-box{
+ margin-top:10px;
+ padding:12px;
+ border-radius:12px;
+ font-size:13px;
+ font-weight:600;
+}
 .fee{
+ background:#f0f9ff;
+ border:1px dashed var(--blue);
+}
+.ongkir{
+ background:#f9fafb;
+ border:1px dashed #cbd5e1;
+}
+.note{
+ margin-top:14px;
+ font-size:12px;
+ line-height:1.7;
+ background:#f9fafb;
  padding:14px;
  border-radius:14px;
- border:1px dashed var(--blue);
- font-size:13px;
- background:#f0f9ff;
+ border:1px solid var(--border);
 }
-
-.btn{
+.form-action{
+ margin-top:20px;
+}
+.form-action .btn{
  width:100%;
- padding:16px;
- border-radius:20px;
- border:0;
- font-weight:700;
- color:#fff;
- background:linear-gradient(135deg,var(--blue),var(--blue2));
- box-shadow:
-  0 0 18px rgba(56,189,248,.8),
-  0 10px 25px rgba(14,165,233,.4);
- cursor:pointer;
-}
-
-.btn:active{transform:scale(.98)}
-
-@media(max-width:600px){
- .logo-wrap{
-  width:140px;
-  height:140px;
- }
 }
 </style>
 </head>
 
 <body>
-<div class="wrap">
 
-<div class="card hero">
+<section class="hero">
  <div class="logo-wrap">
-  <img src="./logo-jastip.jpg" alt="Nitipagain Logo">
+  <img src="logo-jastip.jpg" alt="Logo">
  </div>
  <div class="brand">nitipagain</div>
- <div class="tag">PREMIUM JASTIP</div>
-</div>
+ <div class="tag">PREMIUM JASTIP MAKANAN</div>
+ <div class="status" id="status"></div>
+ <button class="btn" id="orderBtn" onclick="openModal()">PESAN SEKARANG</button>
+</section>
 
-<div class="card">
-<form id="form">
+<div class="modal" id="modal">
+ <div class="box">
+  <form id="form">
 
-<input id="name" placeholder="Nama Pemesan" required>
+   <label>Nama Pemesan</label>
+   <input id="name" placeholder="Wajib diisi">
 
-<select id="ongkir" onchange="update()">
- <option value="0">Pilih Ongkir</option>
- <option value="10000">Kuningan — Rp10.000</option>
- <option value="15000">Cirebon — Rp15.000</option>
- <option value="25000">Bandung — Rp25.000</option>
-</select>
+   <label>Kota Tujuan</label>
+   <select id="kota">
+    <option value="">Pilih kota</option>
+    <option>Kuningan</option>
+    <option>Luar Kuningan</option>
+   </select>
 
-<div id="menus"></div>
+   <label>Detail Pesanan</label>
+   <textarea id="barang" rows="3" placeholder="Nama barang, rasa, jumlah"></textarea>
 
-<textarea id="alamat" placeholder="Alamat Lengkap" required></textarea>
+   <div class="info-box fee" id="feeBox">Fee Jastip: Rp 0</div>
 
-<div class="fee" id="box">
- Subtotal: Rp 0<br>
- Fee Jastip: Rp 0<br>
- Ongkir: Rp 0<br>
- <b>Total: Rp 0</b>
-</div>
+   <div class="info-box ongkir">
+    Ongkir:
+    <br>- Kuningan: Rp 5.000 – 10.000
+    <br>- Luar Kuningan: Rp 15.000 – 20.000
+   </div>
 
-<button class="btn">Kirim Pesanan ke WhatsApp</button>
-</form>
-</div>
+   <div class="note">
+    1. Transfer wajib H-1 sebelum pembelian.<br>
+    2. Dana yang sudah ditransfer <b>tidak dapat dikembalikan (non-refund)</b>.<br>
+    3. Pesanan diproses setelah <b>bukti transfer</b> diterima.<br>
+    4. Jika varian/rasa kosong akan <b>diganti varian serupa</b>.<br>
+    5. Pembayaran via <b>DANA 085720303275</b><br>
+       a/n <b>ANJAR DAFFA REZWAZAHIR</b>.
+   </div>
 
+   <label>Alamat Lengkap</label>
+   <textarea id="alamat" rows="3"></textarea>
+
+   <div class="form-action">
+    <button class="btn">Kirim Pesanan</button>
+   </div>
+
+  </form>
+ </div>
 </div>
 
 <script>
-const MENUS=[
- {name:'Cheesecuit',price:30000,img:'images/cheesecuit.jpg',best:true,varian:['Original','Matcha','Coklat']},
- {name:'Brownies',price:25000,img:'images/brownies.jpg',varian:['Coklat','Keju']},
- {name:'Choco Pie',price:20000,img:'images/chocopie.jpg',best:true,varian:['Classic','Dark Choco']}
-];
-
 const WA='6285720303275';
-const menusDiv=document.getElementById('menus');
-const box=document.getElementById('box');
+const modal=document.getElementById('modal');
+const statusBox=document.getElementById('status');
+const orderBtn=document.getElementById('orderBtn');
+const nameInput=document.getElementById('name');
+const kotaInput=document.getElementById('kota');
+const barangInput=document.getElementById('barang');
+const alamatInput=document.getElementById('alamat');
+const feeBox=document.getElementById('feeBox');
+let feeText='Rp 0';
 
-MENUS.forEach((m,i)=>{
- menusDiv.innerHTML+=`
- <div class="menu">
-  <img src="${m.img}">
-  <div class="menu-info">
-   ${m.best?'<div class="badge">BEST SELLER</div>':''}
-   <b>${m.name}</b><br>
-   <small>Rp ${m.price.toLocaleString('id-ID')}</small>
-   <div class="varian">
-    ${m.varian.map(v=>`
-     <label><input type="radio" name="v${i}" checked> ${v}</label>
-    `).join('')}
-   </div>
-  </div>
-  <div class="select">
-   <input type="checkbox" id="c${i}" onchange="update()">
-   <div class="qty">
-    <button type="button" onclick="chg(${i},-1)">−</button>
-    <span id="q${i}">1</span>
-    <button type="button" onclick="chg(${i},1)">+</button>
-   </div>
-  </div>
- </div>`;
+function openModal(){modal.classList.add('active');}
+
+/* OPEN / CLOSED */
+function updateStatus(){
+ const h=new Date().getHours();
+ if(h>=8 && h<24){
+  statusBox.textContent='● OPEN · Order s/d 00.00 WIB';
+  statusBox.style.background='#dcfce7';
+  statusBox.style.color='#16a34a';
+  orderBtn.disabled=false;
+ }else{
+  statusBox.textContent='● CLOSED · Order diproses mulai 08.00 WIB';
+  statusBox.style.background='#fee2e2';
+  statusBox.style.color='#dc2626';
+  orderBtn.disabled=true;
+ }
+}
+updateStatus();
+setInterval(updateStatus,60000);
+
+/* HITUNG FEE */
+barangInput.addEventListener('input',()=>{
+ let total=0;
+ barangInput.value.split('\n').forEach(l=>{
+  const m=l.match(/(\d+)/);
+  if(m) total+=parseInt(m[1]);
+ });
+ if(total>=1 && total<=3) feeText='Rp 5.000';
+ else if(total>=4 && total<=5) feeText='Rp 10.000';
+ else if(total>=6) feeText='Menyesuaikan';
+ else feeText='Rp 0';
+ feeBox.textContent='Fee Jastip: '+feeText;
 });
 
-function chg(i,n){
- const q=document.getElementById('q'+i);
- q.textContent=Math.max(1,+q.textContent+n);
- update();
-}
-
-function update(){
- let subtotal=0,pcs=0;
- MENUS.forEach((m,i)=>{
-  if(document.getElementById('c'+i).checked){
-   let q=+document.getElementById('q'+i).textContent;
-   subtotal+=m.price*q;
-   pcs+=q;
-  }
- });
- let fee=pcs?Math.ceil(pcs/3)*5000:0;
- let ongkir=+document.getElementById('ongkir').value;
- let total=subtotal+fee+ongkir;
-
- box.innerHTML=`
- Subtotal: Rp ${subtotal.toLocaleString('id-ID')}<br>
- Fee Jastip: Rp ${fee.toLocaleString('id-ID')}<br>
- Ongkir: Rp ${ongkir.toLocaleString('id-ID')}<br>
- <b>Total: Rp ${total.toLocaleString('id-ID')}</b>`;
-}
-
-form.onsubmit=e=>{
+/* SUBMIT */
+document.getElementById('form').addEventListener('submit',e=>{
  e.preventDefault();
- let msg=`🛍️ ORDER JASTIP NITIPAGAIN\nNama: ${name.value}\n\n`;
- MENUS.forEach((m,i)=>{
-  if(document.getElementById('c'+i).checked){
-   msg+=`• ${m.name} x${document.getElementById('q'+i).textContent}\n`;
-  }
- });
- msg+=`\n${box.innerText}\n\nAlamat:\n${alamat.value}`;
+
+ if(
+  nameInput.value.trim()==='' ||
+  kotaInput.value==='' ||
+  barangInput.value.trim()==='' ||
+  alamatInput.value.trim()===''
+ ){
+  alert('Mohon lengkapi seluruh data pesanan.');
+  return;
+ }
+
+ const ongkirText =
+  kotaInput.value === 'Kuningan'
+  ? 'Rp 5.000 – 10.000'
+  : 'Rp 15.000 – 20.000';
+
+ const msg = `Halo Admin nitipagain,
+
+Nama        : ${nameInput.value}
+Kota Tujuan : ${kotaInput.value}
+
+Detail Pesanan:
+${barangInput.value}
+
+Fee Jastip : ${feeText}
+Ongkir     : ${ongkirText}
+
+Alamat:
+${alamatInput.value}
+
+Saya akan segera transfer dan mengirimkan bukti pembayaran agar pesanan diproses.`;
+
  window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`);
-};
+});
 </script>
 
 </body>
 </html>
-
