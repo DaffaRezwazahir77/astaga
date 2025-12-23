@@ -157,7 +157,7 @@ textarea{resize:none}
 
 <section class="hero">
  <div class="logo-wrap">
-  <img src="logo-jastip.jpg" alt="Logo">
+  <img src="assets/img/logo-jastip.jpg" alt="Logo nitipagain">
  </div>
  <div class="brand">nitipagain</div>
  <div class="tag">PREMIUM JASTIP MAKANAN</div>
@@ -180,7 +180,7 @@ textarea{resize:none}
    </select>
 
    <label>Detail Pesanan</label>
-   <textarea id="barang" rows="3" placeholder="Nama barang, rasa, jumlah"></textarea>
+   <textarea id="barang" rows="3" placeholder="Nama barang - rasa - jumlah"></textarea>
 
    <div class="info-box fee" id="feeBox">Fee Jastip: Rp 0</div>
 
@@ -222,7 +222,9 @@ const alamatInput=document.getElementById('alamat');
 const feeBox=document.getElementById('feeBox');
 let feeText='Rp 0';
 
-function openModal(){modal.classList.add('active');}
+function openModal(){
+ modal.classList.add('active');
+}
 
 /* OPEN / CLOSED */
 function updateStatus(){
@@ -297,4 +299,3 @@ Saya akan segera transfer dan mengirimkan bukti pembayaran agar pesanan diproses
 
 </body>
 </html>
-
