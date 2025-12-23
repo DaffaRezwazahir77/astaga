@@ -22,13 +22,12 @@ body{
  font-family:Inter,sans-serif;
  background:var(--bg);
  color:var(--text);
- height:100vh;
- overflow:hidden;
+ min-height:100vh;
 }
 
 /* HERO */
 .hero{
- height:100vh;
+ min-height:100vh;
  display:flex;
  flex-direction:column;
  justify-content:center;
@@ -48,6 +47,7 @@ body{
  width:100%;
  height:100%;
  object-fit:cover;
+ display:block;
 }
 .brand{
  font-family:'Playfair Display';
@@ -157,7 +157,6 @@ textarea{resize:none}
 
 <section class="hero">
  <div class="logo-wrap">
-  <!-- PATH LOGO SUDAH BENAR -->
   <img src="logo-jastip.jpg" alt="Logo nitipagain">
  </div>
  <div class="brand">nitipagain</div>
