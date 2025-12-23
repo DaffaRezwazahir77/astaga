@@ -157,7 +157,8 @@ textarea{resize:none}
 
 <section class="hero">
  <div class="logo-wrap">
-  <img src="assets/img/logo-jastip.jpg" alt="Logo nitipagain">
+  <!-- PATH LOGO SUDAH BENAR -->
+  <img src="logo-jastip.jpg" alt="Logo nitipagain">
  </div>
  <div class="brand">nitipagain</div>
  <div class="tag">PREMIUM JASTIP MAKANAN</div>
@@ -192,9 +193,9 @@ textarea{resize:none}
 
    <div class="note">
     1. Transfer wajib H-1 sebelum pembelian.<br>
-    2. Dana yang sudah ditransfer <b>tidak dapat dikembalikan (non-refund)</b>.<br>
+    2. Dana yang sudah ditransfer <b>tidak dapat dikembalikan</b>.<br>
     3. Pesanan diproses setelah <b>bukti transfer</b> diterima.<br>
-    4. Jika varian/rasa kosong akan <b>diganti varian serupa</b>.<br>
+    4. Jika varian kosong akan <b>diganti serupa</b>.<br>
     5. Pembayaran via <b>DANA 085720303275</b><br>
        a/n <b>ANJAR DAFFA REZWAZAHIR</b>.
    </div>
@@ -226,7 +227,6 @@ function openModal(){
  modal.classList.add('active');
 }
 
-/* OPEN / CLOSED */
 function updateStatus(){
  const h=new Date().getHours();
  if(h>=8 && h<24){
@@ -244,7 +244,6 @@ function updateStatus(){
 updateStatus();
 setInterval(updateStatus,60000);
 
-/* HITUNG FEE */
 barangInput.addEventListener('input',()=>{
  let total=0;
  barangInput.value.split('\n').forEach(l=>{
@@ -252,22 +251,16 @@ barangInput.addEventListener('input',()=>{
   if(m) total+=parseInt(m[1]);
  });
  if(total>=1 && total<=3) feeText='Rp 5.000';
- else if(total>=4 && total<=5) feeText='Rp 10.000';
+ else if(total<=5) feeText='Rp 10.000';
  else if(total>=6) feeText='Menyesuaikan';
  else feeText='Rp 0';
  feeBox.textContent='Fee Jastip: '+feeText;
 });
 
-/* SUBMIT */
 document.getElementById('form').addEventListener('submit',e=>{
  e.preventDefault();
 
- if(
-  nameInput.value.trim()==='' ||
-  kotaInput.value==='' ||
-  barangInput.value.trim()==='' ||
-  alamatInput.value.trim()===''
- ){
+ if(!nameInput.value || !kotaInput.value || !barangInput.value || !alamatInput.value){
   alert('Mohon lengkapi seluruh data pesanan.');
   return;
  }
@@ -279,19 +272,17 @@ document.getElementById('form').addEventListener('submit',e=>{
 
  const msg = `Halo Admin nitipagain,
 
-Nama        : ${nameInput.value}
-Kota Tujuan : ${kotaInput.value}
+Nama: ${nameInput.value}
+Kota: ${kotaInput.value}
 
-Detail Pesanan:
+Pesanan:
 ${barangInput.value}
 
-Fee Jastip : ${feeText}
-Ongkir     : ${ongkirText}
+Fee: ${feeText}
+Ongkir: ${ongkirText}
 
 Alamat:
-${alamatInput.value}
-
-Saya akan segera transfer dan mengirimkan bukti pembayaran agar pesanan diproses.`;
+${alamatInput.value}`;
 
  window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`);
 });
